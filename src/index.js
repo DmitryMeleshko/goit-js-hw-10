@@ -1,7 +1,7 @@
 import './css/styles.css';
 import Notiflix from 'notiflix';
 import { fetchCountries } from './fetchCountries';
-var debounce = require('lodash.debounce');
+import debounce from 'lodash.debounce';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -27,31 +27,20 @@ function seachCountry(evt) {
       createMarkup(data);
     })
     .catch(error => {
-      if (name !== '') {
         Notiflix.Notify.failure('Oops, there is no country with that name');
         clearData(list);
         clearData(info);
-      }
-      if (name === '') {
-        Notiflix.Notify.failure('Oops, there is no country with that name');
-        clearData(list);
-        clearData(info);
-      }
     });
   evt.preventDefault();
 }
 
 function createMarkup(array) {
   if (array.length > 10) {
-    clearData(list);
-    clearData(info);
 
     Notiflix.Notify.info(
       'Too many matches found. Please enter a more specific name.'
     );
   } else if (array.length > 1 && array.length <= 10) {
-    clearData(list);
-    clearData(info);
 
     const createListMarkupStart = array
       .map(
